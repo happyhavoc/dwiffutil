@@ -290,7 +290,7 @@ fn apply_diffs_command(args: ApplyDiffsSubcommand) {
             println!("MISMATCH - {} {} (expected {:#010x}, got {:#010x})", diff.update_name, path.display(), diff.updated_file_crc32, updated_file_crc32);
         } else {
             tmp_path.persist(&installed_file).unwrap();
-            println!("OK       - {} {} ({:010x})", diff.update_name, path.display(), diff.updated_file_crc32);
+            println!("OK       - {} {} ({:#010x})", diff.update_name, path.display(), diff.updated_file_crc32);
         }
     }
 }
