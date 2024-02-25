@@ -4,6 +4,7 @@ use std::path::{Path, PathBuf};
 use argh::FromArgs;
 use tempfile::NamedTempFile;
 
+#[allow(dead_code)]
 #[derive(Debug)]
 struct Datetime {
     year: u16,
@@ -49,6 +50,7 @@ impl Instruction {
     }
 }
 
+#[allow(dead_code)]
 #[derive(Debug)]
 struct Diff {
     version_high: u8,
