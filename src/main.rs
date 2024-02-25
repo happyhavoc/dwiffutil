@@ -138,6 +138,16 @@ impl Diff {
         };
         PathBuf::from(folder).join(&self.filename)
     }
+
+    fn percent_changed(&self) -> f32 {
+        let updated_bytes: usize = self
+            .instructions
+            .iter()
+            .map(|v| if let Instruction::UpdatedData { data } = v { data.len() } else { 0 })
+            .sum();
+
+        updated_bytes as f32 / self.file_size as f32
+    }
 }
 
 static CRC32_TABLE: [u32; 256] = [
@@ -289,7 +299,7 @@ fn list_diffs_command(args: ListDiffsSubcommand) {
     let diffs = get_diffs(&args.update_file);
 
     for diff in diffs {
-        println!("{}\t{} ({:#010x} -> {:#010x})", diff.update_name, diff.path().display(), diff.original_file_crc32, diff.updated_file_crc32);
+        println!("{}\t{} ({:#010x} -> {:#010x}), {:.02}% updated", diff.update_name, diff.path().display(), diff.original_file_crc32, diff.updated_file_crc32, diff.percent_changed() * 100.);
     }
 }
 
